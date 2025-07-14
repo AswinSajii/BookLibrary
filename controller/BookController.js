@@ -3,7 +3,7 @@ import Book from "../models/BookSchema.js";
 export const getAllBooks = async (req, res) => {
   try {
     const books = await Book.find();
-    res.json(books);
+    res.json({ message: "Books retrieved successfully", books });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -14,7 +14,7 @@ export const createBook = async (req, res) => {
     const { title, author, year } = req.body;
     const newBook = new Book({ title, author, year });
     await newBook.save();
-    res.status(201).json(newBook);
+    res.status(201).json({ message: "New book added", book: newBook });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
